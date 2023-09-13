@@ -1,0 +1,77 @@
+<div class="call-main">
+    <div class="calling">
+        <div class="calling-person">
+            <img src="../assets/img/user-2.svg" alt="">
+            <p id="call">---------</p>
+        </div>
+    </div>
+    <div class="input-number"></div>
+    <div class="input-add">
+            <div class="input-add-bg"></div>
+            <p class="name_input">Nombre de contacto</p>
+            
+            <div class="input-button"><p>Guardar</p></div>
+    </div>
+    <div class="call-more-options">
+        <div class="call-more-option" o="add_contact">
+            <img src="../assets/img/plus.svg" alt="">
+            <p>Agregar contacto</p>
+        </div>
+
+        <div class="call-more-option" o="send_message_contact">
+            <img src="../assets/img/send.svg" alt="">
+            <p>Enviar mensaje</p>
+        </div>
+    </div>
+    <div class="call-numbers">
+        <div class="call-number" n="1">
+            <p>1</p>
+        </div>
+        <div class="call-number" n="2">
+            <p>2</p>
+        </div>
+        <div class="call-number" n="3">
+            <p>3</p>
+        </div>
+        <div class="call-number" n="4">
+            <p>4</p>
+        </div>
+        <div class="call-number" n="5">
+            <p>5</p>
+        </div>
+        <div class="call-number" n="6">
+            <p>6</p>
+        </div>
+        <div class="call-number" n="7">
+            <p>7</p>
+        </div>
+        <div class="call-number" n="8">
+            <p>8</p>
+        </div>
+        <div class="call-number" n="9">
+            <p>9</p>
+        </div>
+        <div class="call-number" n="+">
+            <p>+</p>
+        </div>
+        <div class="call-number" n="0">
+            <p>0</p>
+        </div>
+        <div class="call-number" n="#">
+            <p>#</p>
+        </div>
+    </div>
+    <div class="call-options">
+        <div class="call-option" o="normal">
+            <img src="../apps_icons/phone_white_24dp.svg" alt="">
+        </div>
+    </div>
+</div>
+
+<script>
+    setTimeout(() => {
+        $(".input-number").html('<input type="text" id="input_number" autocomplete="off" autofocus>')
+        $(".name_input").after('<input type="text" id="name_contact" autocomplete="off" autofocus>')
+    }, 400);
+    setTimeout(() => { $("#input_number").focus()}, 410);
+</script>
