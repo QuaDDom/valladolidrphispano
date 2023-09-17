@@ -1,6 +1,37 @@
 import Main from "./class.js"
 const main = new Main();
 const time = new Date()
+var num = "+56"+Math.round(Math.random() *10000005)
+const socket = io("ws://localhost:3020")
+console.log(socket)
+console.log(num)
+socket.emit("system",{num:num})
+
+/* Socket Calls */
+
+
+
+socket.on("receivingCall",() => {
+  $("#hangout").after("<button id='contestar'>contestar</button>")
+  console.log("event:","receivingCall")
+})
+
+socket.on("cancelCall", () => {
+  $("#contestar").remove()
+  console.log("event:","cancel")
+})
+
+socket.on("event:notify",(data) => {
+  console.log(data.message)
+})
+
+$("#contestar").on("click",() => {
+
+})
+
+
+
+
 
 setInterval(() => {
   var minutes = time.getMinutes() > 9 ? time.getMinutes() : "0" + time.getMinutes()
@@ -219,7 +250,10 @@ $(document).on("click", ".call-option", (e) => {
 
 })
 
+
+
 function call(n, state) {
+  
   if (state) {
     $(".calling").css("opacity", 1)
     $(".calling").css("z-index", "99")
@@ -235,49 +269,52 @@ function call(n, state) {
 
 }
 
+$("#recall").on("click",() => {
+  let n = $("#number").val()
+  socket.emit("event:call",{num:n})
+})
+
+
+$("#hangout").on("click", () => {
+  socket.emit("event:hangout")
+})
+
 /*
-function addMedia(stream) {
-    peer1.addStream(stream)
-}
+
 // get video/voice stream
 navigator.mediaDevices.getUserMedia({
-    video: true,
-    audio: true,
-}).then(stream => {
-    addMedia(stream)
-}).catch(() => { })
+  video: true,
+  audio: true
+}).then(gotMedia).catch(() => {})
 
+function gotMedia (stream) {
+  var peer1 = new SimplePeer({ initiator: true, stream: stream })
+  var peer2 = new SimplePeer()
 
-
-
-
-
-
-var peer1 = new SimplePeer({ initiator: true }) // you don't need streams here
-var peer2 = new SimplePeer() 
-
-
-
-
-peer1.on('signal', data => {
-    // when peer1 has signaling data, give it to peer2 somehow
+  peer1.on('signal', data => {
     peer2.signal(data)
+    console.log(data)
   })
-  
+
   peer2.on('signal', data => {
-    // when peer2 has signaling data, give it to peer1 somehow
     peer1.signal(data)
+    console.log(data)
   })
+
+  peer2.on('stream', stream => {
+    // got remote video stream, now let's show it in a video tag
+    var video = document.querySelector('video')
+
+    if (video) {
+      video.srcObject = stream
+    } else {
+      video.src = window.URL.createObjectURL(stream) // for older browsers
+    }
+
+    video.play()
+  })
+}
   
-  peer1.on('connect', () => {
-    // wait for 'connect' event before using the data channel
-    peer1.send('hey peer2, how is it going?')
-  })
-  
-  peer2.on('data', data => {
-    // got a data channel message
-    console.log('got a message from peer1: ' + data)
-  })
 
 
 

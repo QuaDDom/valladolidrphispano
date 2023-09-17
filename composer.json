@@ -1,0 +1,19 @@
+{
+    "authors": [
+        {
+            "email": "52444606+TokyoTF@users.noreply.github.com",
+            "name": "ダイレクトコネクト"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Tokyotf\\valladolid\\": "src/"
+        }
+    },
+    "name": "tokyotf/valladolid",
+    "require": {
+        "nikic/fast-route": "^1.3",
+        "smarty/smarty": "^4.3",
+        "verot/class.upload.php": "^2.1"
+    }
+}
