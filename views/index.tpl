@@ -10,7 +10,6 @@
                         <div class="slider-text">
                             <p>{$item.title}</p>
                             <div class="slider-info">
-
                             </div>
                         </div>
                     </div>

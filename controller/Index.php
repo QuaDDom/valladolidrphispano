@@ -9,10 +9,8 @@ class Index extends Controller
         $title = "Inicio";
 
         $Slider = self::query("SELECT * FROM slider_post ORDER BY id DESC LIMIT 6");
-        $Blog = self::query("SELECT * FROM blog_post ORDER BY id DESC LIMIT 3");
-
+ 
         $setValue = array(
-            "blog" => $Blog,
             "slider" => $Slider,
         );
 

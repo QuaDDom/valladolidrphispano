@@ -16,6 +16,7 @@ ul {
 
 body {
     overflow-x: hidden;
+    background-color: #1E1E1E;
     font-family: 'Inter', sans-serif;
 }
 
@@ -24,7 +25,7 @@ p {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: overlay;
 }
 
 body::-webkit-scrollbar {
@@ -32,12 +33,13 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-    background: #f9f9f92a;
+    background: transparent;
     padding: 5px;
 }
 
 body::-webkit-scrollbar-thumb {
     background: #727272;
+    border-radius: 5rem;
 }
 
 .container {
@@ -45,12 +47,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 .menu-top {
-    min-height: 35px;
-    padding: 15px;
+    height: 45px;
+    padding: 10px 15px;
+    margin-bottom: 60px;
     display: flex;
     z-index: 2;
     gap: 5px;
-    position: relative;
+    top:0;
+    position: sticky;
     background-color: #2A2A2A;
     align-items: center;
     flex-wrap: wrap;
@@ -82,12 +86,47 @@ body::-webkit-scrollbar-thumb {
     user-select: none;
 }
 
+.user-auth {
+    margin-left: auto;
+    display: flex;
+    gap:10px;
+    position: relative;
+}
+
+.user-auth-item {
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: 0.3s ease background-color;
+    background-color: #363636;
+}
+
+.user-auth-item:hover {
+    background-color: #474747;
+}
+
+.user-auth-item p{
+    font-size: 15px;
+    color: #FFFFFF;
+}
+
+.user-wrapper {
+    margin-left: auto;
+}
+
 
 .user-profile {
     display: flex;
-    gap: 10px;
-    margin-left: auto;
+    gap: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+    justify-content: flex-end;
+    border-radius: 4px;
 }
+
+.user-profile:hover {
+    background-color: #363636;
+}
+
 
 .user-profile-info {
     display: flex;
@@ -96,13 +135,15 @@ body::-webkit-scrollbar-thumb {
     justify-content: center;
 }
 
+
+
 .user-profile-info p {
-    font-size: 13px;
+    font-size: 14px;
     color: #FFFFFF;
 }
 
 .user-profile-info span {
-    font-size: 12px;
+    font-size: 14px;
     background: #EEE098;
     background: -webkit-linear-gradient(to right, #EEE098, #B29C27);
     background: linear-gradient(to right, #EEE098, #B29C27);
@@ -127,55 +168,147 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-/* Fix in phone */
+/* Sub menu */
 
-.menu-top-phone {
-    width: 85px;
-    height: 100%;
-    background-color: #000E26;
-}
-
-.menu-top-phone svg {
-    width: 100%;
-    height: 100%;
-    stroke: #0059FF;
-}
-
-.menu-top-phone-list {
-    width: 60%;
+.menu-sub {
     display: flex;
-    justify-content: center;
+    gap:10px;
+    left: 15px;
+    position: absolute;
+    bottom: -45px;
+}
+
+.menu-sub-item {
+    padding: 5px 7px;
+    display: flex;
+    border-radius: 4px;
+    gap:10px;
+    cursor: pointer;
     align-items: center;
-    flex-direction: column;
-    box-shadow: 0px 2px 0px 2px #fb6994;
-    background-color: #000e26;
+    transition: 0.3s ease box-shadow;
+    justify-content: space-between;
+    background-color: #373737;
+}
+
+.menu-sub-item:hover {
+    box-shadow: 0px 0px 0px 1px rgb(142, 142, 142);
+}
+
+.menu-sub-item:not(:first-child){
+    padding: 5px 15px;
+}
+
+.menu-sub-item:first-child img{
+    filter:invert();
+}
+
+.menu-sub-item img {
+    width: 20px;
+    object-fit: cover;
+    opacity: 80%;
+}
+
+.menu-sub-item p {
+    font-size: 13px;
+    color:#B1B1B1;
+    font-weight: 600;
+}
+
+
+.background {
     position: absolute;
     top: 0;
-    margin-top: 12.9rem;
-    z-index: 11;
-    display: none;
+    left: 0;
+    opacity: 30%;
+    right: 0;
+    z-index: -99;
+}
+
+
+.background img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+.user-options {
+    width: 170px;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: -165px;
     opacity: 0;
-    transition: 0.3s ease opacity, 0.3s ease display;
+    z-index: 99;
+    backdrop-filter: blur(5px);
+    background-color: #2A2A2A;
 }
 
-.menu-top-phone-list.phone-active {
-    opacity: 1;
+
+.user-option {
+    padding: 10px 15px;
+    padding-left: 10px;
+    position: relative;
     display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s ease background;
 }
 
-.menu-top-phone-item {
-    height: 30px;
-    padding: 20px 0px;
+.user-option:hover {
+    background-color: #373737;
 }
 
-.menu-top-phone-item p {
-    text-transform: uppercase;
-    font-size: 18px;
+.user-option p {
+    color: #FFFFFF;
     font-weight: 400;
-    color: white;
-    user-select: none;
+    text-transform: capitalize;
+    font-size: 14px;
 }
 
+/* Footer */
+
+.footer-about {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap:10px;
+    padding: 2px 20px;
+    justify-content: flex-end;
+    background-color: #2A2A2A;
+}
+
+.footer-about p {
+    color: #ADADAD;
+    font-weight: 400;
+    text-transform: capitalize;
+    font-size: 14px;
+}
+
+.footer-container {
+    height: 260px;
+    background-color: #262626;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.social-list {
+    display: flex;
+    gap:10px;
+    margin: 20px;
+    margin-left: auto;
+}
+
+.social-item {
+    width: 60px;
+    height: 60px;
+    background-color: #2A2A2A;
+    border-radius: 5rem;
+}
+
+/* Slider */
 
 .slider-container {
     width: 800px;
@@ -184,7 +317,7 @@ body::-webkit-scrollbar-thumb {
     left: -0.5px;
     position: relative;
     margin-top: 20px;
-    margin-left: 20px;
+    margin-left: 60px;
     border-radius: 5px;
     overflow: hidden;
 }
