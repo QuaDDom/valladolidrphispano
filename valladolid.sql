@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `slider_post` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Volcando datos para la tabla valladolid.slider_post: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla valladolid.slider_post: ~0 rows (aproximadamente)
 INSERT INTO `slider_post` (`id`, `title`, `image`, `link`, `blank`, `created_at`) VALUES
 	(38, 'asdasd', 'asdasdads', 'https', 0, '2023-09-16 22:53:12');
 
