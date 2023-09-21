@@ -26,7 +26,10 @@
     </div>
 </div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script src="{$APP_HOST}/public/assets/js/main.js"></script>
+<script type="module" src="{$APP_HOST}/public/assets/js/class.js"></script>
+<script async type="module" src="{$APP_HOST}/public/assets/js/app.js"></script>
 <script src="{$APP_HOST}/public/assets/js/dropdown.js"></script>
 </body>
 

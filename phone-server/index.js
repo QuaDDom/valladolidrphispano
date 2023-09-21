@@ -36,7 +36,7 @@ io.on("connection", socket => {
         if (caller) {
             if (!socket.data.calling && socket.data.num != data.num) {
                 //console.log(caller)
-                
+                console.log("1")
                 caller.filter((f) => {
                     if(f.data){
                         socket_call = f
@@ -55,15 +55,16 @@ io.on("connection", socket => {
 
             socket.on("event:hangout", () => {
                 //DisconnectHostRoom()
-
-                socket_call.data.calling = false
-                socket.data.calling = false
-
-                io.to(data.num).emit("cancelCall","")
-                socket.leave(data.num)
-                socket_call.leave(data.num)
-
-                
+                if(socket.data.calling){
+                    socket_call.data.calling = false
+                    socket.data.calling = false
+    
+                    io.to(data.num).emit("cancelCall","")
+                    socket.leave(data.num)
+                    socket_call.leave(data.num)
+                }else {
+                    socket.emit("event:notify", { message: "No estas llamado" })
+                }
             })
         } else {
             socket.emit("event:notify", { message: "Este usuario esta ocupado" })

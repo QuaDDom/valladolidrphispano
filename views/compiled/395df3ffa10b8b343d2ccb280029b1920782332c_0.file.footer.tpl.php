@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-09-19 04:20:16
+/* Smarty version 4.3.0, created on 2023-09-19 17:21:33
   from 'C:\xampp\htdocs\views\common\footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_65094bb016f4b8_58593075',
+  'unifunc' => 'content_650a02cdc35719_09655657',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '395df3ffa10b8b343d2ccb280029b1920782332c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\views\\common\\footer.tpl',
-      1 => 1695108015,
+      1 => 1695154155,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65094bb016f4b8_58593075 (Smarty_Internal_Template $_smarty_tpl) {
+function content_650a02cdc35719_09655657 (Smarty_Internal_Template $_smarty_tpl) {
 ?></div>
 <div class="footer-container">
     <div class="social-list">
@@ -52,8 +52,19 @@ function content_65094bb016f4b8_58593075 (Smarty_Internal_Template $_smarty_tpl)
  type="text/javascript" src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"><?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
+ src="https://cdn.socket.io/4.5.4/socket.io.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['APP_HOST']->value;?>
 /public/assets/js/main.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ type="module" src="<?php echo $_smarty_tpl->tpl_vars['APP_HOST']->value;?>
+/public/assets/js/class.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ async type="module" src="<?php echo $_smarty_tpl->tpl_vars['APP_HOST']->value;?>
+/public/assets/js/app.js"><?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['APP_HOST']->value;?>

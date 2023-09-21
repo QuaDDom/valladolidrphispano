@@ -17,6 +17,7 @@
         <img src="{$APP_HOST}/public/assets/img/bg.png" alt="" />
     </div>
     <div class="container">
+    {include file="../../phone/index.tpl"}
     <div class="stats-server">
         <p></p>
         <p></p>
