@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-09-19 18:06:27
+/* Smarty version 4.3.0, created on 2023-09-24 17:22:44
   from 'C:\xampp\htdocs\views\auth.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_650a0d53c01716_62623823',
+  'unifunc' => 'content_65109a94e70e77_23200604',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7b4b89373fafd71bcb83656ed2d37ceea9a9cea9' => 
     array (
       0 => 'C:\\xampp\\htdocs\\views\\auth.tpl',
-      1 => 1694904607,
+      1 => 1695333890,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:common/footer.tpl' => 1,
   ),
 ),false)) {
-function content_650a0d53c01716_62623823 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65109a94e70e77_23200604 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:common/header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <div class="input-container">

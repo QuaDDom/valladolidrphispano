@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-09-19 17:21:33
+/* Smarty version 4.3.0, created on 2023-09-24 01:02:37
   from 'C:\xampp\htdocs\views\common\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_650a02cdc18029_14754459',
+  'unifunc' => 'content_650fb4dd680ae9_20240770',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '44fc082ae49a9175863b0e80fe76ff90f39e54a8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\views\\common\\header.tpl',
-      1 => 1695153627,
+      1 => 1695416321,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:../../phone/index.tpl' => 1,
   ),
 ),false)) {
-function content_650a02cdc18029_14754459 (Smarty_Internal_Template $_smarty_tpl) {
+function content_650fb4dd680ae9_20240770 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="es">
 
@@ -47,8 +47,7 @@ function content_650a02cdc18029_14754459 (Smarty_Internal_Template $_smarty_tpl)
 /public/assets/img/bg.png" alt="" />
     </div>
     <div class="container">
-    <?php $_smarty_tpl->_subTemplateRender("file:../../phone/index.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
+    
     <div class="stats-server">
         <p></p>
         <p></p>
@@ -141,5 +140,7 @@ function content_650a02cdc18029_14754459 (Smarty_Internal_Template $_smarty_tpl)
                     <p>DISCORD</p>
                 </div>
             </div>
-</div><?php }
+</div>
+<?php $_smarty_tpl->_subTemplateRender("file:../../phone/index.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+}
 }

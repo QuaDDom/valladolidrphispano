@@ -1,33 +1,69 @@
 import Main from "./class.js"
 const main = new Main();
 const time = new Date()
-var num = "+56"+Math.round(Math.random() *10000005)
+var init = false
+var path = "../../phone/sounds/"
+var num = "+56" + Math.round(Math.random() * 10000005)
 const socket = io("ws://localhost:3020")
 console.log(socket)
 console.log(num)
-socket.emit("system",{num:num})
+
+
+
+
+var initSystem = setInterval(() => {
+  if (init) {
+    main.getConfig("blocks").then((data) => {
+      socket.emit("system", { num: num, blocks: data })
+    })
+    main.getConfig("ringtone").then((data) => {
+      $("#ringtone")[0].volume = 0.5
+      $("#ringtone").attr("src",path+data)
+    })
+  
+    clearInterval(initSystem)
+  }
+}, 800);
+
 
 /* Socket Calls */
 
 
-socket.on("receivingCall",() => {
-  $("#hangout").after("<button id='contestar'>contestar</button>")
-  console.log("event:","receivingCall")
+socket.on("receivingCall", (data) => {
+  console.log("event:", "receivingCall", data.num)
+  setTimeout(() => {
+    reciver(data.num, true)
+  }, 500);
+
 })
 
 socket.on("cancelCall", () => {
-  $("#contestar").remove()
-  console.log("event:","cancel")
+  reciver("", false)
+  call("", false)
+  console.log("event:", "cancel")
 })
 
-socket.on("event:notify",(data) => {
+socket.on("event:notify", (data) => {
   console.log(data.message)
 })
 
-$("#contestar").on("click",() => {
+$("#contestar").on("click", () => {
 
 })
 
+
+$(document).on("click", "#block_number", () => {
+  let n = $("#reciver-call").text()
+  socket.emit("event:hangout")
+  main.getConfig("blocks").then((data) => {
+    if(!data.includes(n)){
+      data.push(n)
+      main.saveConfig("blocks", data)
+      socket.emit("system:update", data)
+    }
+   
+  })
+})
 
 
 
@@ -37,7 +73,7 @@ setInterval(() => {
   $(".time p").text(time.getHours() + ":" + minutes)
 }, 1000);
 
-var init = false
+
 var transition = false
 
 
@@ -45,8 +81,9 @@ var win_w_max = 226
 var win_w_min = 102
 
 $(window).on("load", () => {
-  main.init();
-  init = true
+  main.init().then((data) => {
+    init = data
+  });
 })
 
 $(document).on("click", (e) => {
@@ -116,11 +153,10 @@ function toggleApps(state) {
   }
 }
 
-$(document).on("click",".contact",(e) => {
+$(document).on("click", ".contact", (e) => {
   let num = $(e.currentTarget).find(".contact-info span").text()
-  $(".call-options .call-option").attr("o", "calling")
-  $(".call-options .call-option").css("transform","translateY(0px)")
-  call(num,true)
+  $(".call-options .call-option").css("transform", "translateY(0px)")
+  call(num, true)
 })
 
 function toggleView(html, state) {
@@ -137,7 +173,6 @@ function toggleView(html, state) {
     </div>
   `)))
   }
-
 
   if (state) {
     $(".phone-into-app").css("display", "block")
@@ -191,14 +226,14 @@ $(document).on("click", ".call-more-option[o='add_contact']", () => {
 $(document).on("click", ".input-button", () => {
   let name = $("#name_contact").val()
   let num = $("#input_number").val()
-  if(name.length > 3 && num.length > 8 && num.includes("+")){
+  if (name.length > 3 && num.length > 8 && num.includes("+")) {
     main.getConfig("contacts").then((data) => {
       data.push({ name: name, number: num })
       main.saveConfig("contacts", data)
       $(".input-add").css("z-index", "-99")
-  $(".input-add").css("opacity", 0)
+      $(".input-add").css("opacity", 0)
     })
-  }else {
+  } else {
     console.log("Fallo en algo")
   }
 })
@@ -212,10 +247,23 @@ $(document).on("click", ".settings-tab", (e) => {
     for (let index = 0; index < 31; index++) {
       $(".set_bg_list").append(`<img class="set_bg" src="../phone/backgrounds/b${index}.png" alt=""/>`)
     }
-  }else if(t == "sound"){
+  } else if (t == "sound") {
     showSettings(true, "Sounds")
     $(".settings-panel").html('<div class="set_sound_list"></div>')
-    $(".set_sound_list").append(`<audio class="set_sound" src="../phone/sounds/sound0.mp3" controls></audio>`)
+    for (let index = 0; index < 2; index++) {
+    $(".set_sound_list").append(`<div class="set_warp"><audio class="set_sound" style="max-width: 120px;" src="${path}sound${index}.mp3" controls></audio><button id="put_sound" data="../phone/sounds/sound${index}.mp3">ok</button></div>`)
+    }
+  } else if (t == "block") {
+    showSettings(true, "Numbers blocks")
+    $(".settings-panel").html('<div class="set_blocks_list"></div>')
+    main.getConfig("blocks").then((data) => {
+      data.map((number) => {
+        $(".set_blocks_list").append(`<p>${number}</p><button id="unblock" n="${number}">unblock</button>`)
+      })
+    })
+
+  } else if (t == "remove_config") {
+    main.deleteConfig()
   }
 })
 
@@ -223,12 +271,29 @@ $(document).on("click", ".set_bg", (e) => {
   main.saveConfig("background", $(e.currentTarget).attr("src"))
 })
 
-$(document).on("click",".panic-button",() => {
-    call("#133",true)
-    $(".call-options .call-option").attr("o", "calling")
-    $(".call-options .call-option").css("transform","translateY(0px)")
+$(document).on("click", ".panic-button", () => {
+  call("#133", true)
+  $(".call-options .call-option").css("transform", "translateY(0px)")
 })
 
+$(document).on("click","#put_sound",(e) => {
+  let s = $(e.currentTarget).attr("data")
+  $("#ringtone").attr("src",s)
+  main.saveConfig("ringtone", s)
+})
+
+$(document).on("click", "#unblock", (e) => {
+  let n = $(e.currentTarget).attr("n")
+  main.getConfig("blocks").then((data) => {
+    var blocks_new = (data).filter((en) => en != n)
+    main.saveConfig("blocks", blocks_new)
+    $(".set_blocks_list").html("")
+    blocks_new.map((number) => {
+      $(".set_blocks_list").append(`<p>${number}</p><button id="unblock" n="${number}">unblock</button>`)
+    })
+    socket.emit("system:update", blocks_new)
+  })
+})
 
 
 $(document).on("click", ".call-option", (e) => {
@@ -236,14 +301,12 @@ $(document).on("click", ".call-option", (e) => {
   let o = $(e.currentTarget).attr("o")
 
   if (o == "normal") {
-    $(e.currentTarget).css("transform","translateY(0px)")
-    $(e.currentTarget).attr("o", "calling")
+    $(e.currentTarget).css("transform", "translateY(0px)")
     call(v, true)
   } else if (o == "calling") {
-    if(!$(".call-main").length){
-      $(e.currentTarget).css("transform","translateY(50px)")
+    if (!$(".call-main").length) {
+      $(e.currentTarget).css("transform", "translateY(50px)")
     }
-    $(e.currentTarget).attr("o", "normal")
     call(v, false)
   }
 
@@ -252,31 +315,63 @@ $(document).on("click", ".call-option", (e) => {
 
 
 function call(n, state) {
-  
+
   if (state) {
+    $(".call-options .call-option").attr("o", "calling")
     $(".calling").css("opacity", 1)
     $(".calling").css("z-index", "99")
     $(".call-options").css("z-index", "99")
     $("#call").text(n)
     $(".call-options .call-option").addClass("call-calling")
+    socket.emit("event:call", { num: n })
   } else {
+    $(".call-options .call-option").attr("o", "normal")
     $(".calling").css("opacity", 0)
     $(".calling").css("z-index", "-99")
     $("#call").text("---------")
     $(".call-options .call-option").removeClass("call-calling")
+    socket.emit("event:hangout")
   }
-
 }
 
-$("#recall").on("click",() => {
-  let n = $("#number").val()
-  socket.emit("event:call",{num:n})
+function reciver(n, state) {
+  
+  if (state) {
+    $(".receiver-calling").css("opacity", 1)
+    $(".phone-receivercall").css("z-index", "100")
+    $(".phone-receivercall").css("display", "block")
+    $("#reciver-call").text(n)
+    $("#ringtone")[0].play()
+  } else {
+    $(".receiver-calling").css("opacity", 0)
+    $(".phone-receivercall").css("z-index", "-99")
+    $(".phone-receivercall").css("display", "none")
+    $("#reciver-call").text("---------")
+    socket.emit("event:hangout")
+    $("#ringtone")[0].pause()
+    $("#ringtone")[0].currentTime = 0
+  }
+}
+
+$(document).on("click", "#attendCall", () => {
+  $("#ringtone")[0].pause()
+  $("#ringtone")[0].currentTime = 0
+  socket.emit("event:establish")
 })
 
+socket.on("event:voice",(data) => {
+
+})
+
+$(document).on("click", "#cancelCall", () => {
+  socket.emit("event:hangout")
+})
 
 $("#hangout").on("click", () => {
   socket.emit("event:hangout")
 })
+
+
 
 /*
 

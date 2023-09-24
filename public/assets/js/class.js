@@ -2,6 +2,8 @@ var settings = {
     notify: [],
     apps_store: [],
     contacts:[],
+    blocks:[],
+    ringtone:"",
     background: "../../../phone/backgrounds/b6.png"
 }
 
@@ -84,7 +86,7 @@ const apps = [
 export default class Main {
     constructor() { }
 
-    init() {
+    async init() {
         if (!localStorage.getItem("settings")) {
             localStorage.setItem("settings", JSON.stringify(settings))
         }else{
@@ -117,20 +119,28 @@ export default class Main {
             </div>
         `)
         })
+        return true
     }
 
 
     async getConfig(key){
+        settings = JSON.parse(localStorage.getItem("settings"))
         return settings[key]
     }
      
     async saveConfig(key,value){
+        
         settings[key] = value;
         this.reloadConfig()
         localStorage.setItem("settings",JSON.stringify(settings))
     }
 
+    deleteConfig(){
+        localStorage.removeItem("settings")
+    }
+
     reloadConfig(){
+        $("#ringtone").attr("src",settings.ringtone)
         $(".phone-bg img").attr("src", settings.background)
     }
 

@@ -20,19 +20,17 @@ class UserAdminController extends Controller
                     $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
                     $user = self::query("SELECT * FROM users WHERE email = '" . $email . "'");
-                    if (sizeof($user) > 0) {
-                        //admin exist
-                        header("Location: " . APP_HOST . "/404");
-                    }
 
                     if (sizeof($user) == 0) {
                         $rg = self::query("INSERT INTO users set username = '" . $username . "',email = '" . $email . "', password = '" . $password_hash . "'");
                         if ($rg) {
-                            //admin register true
+                            //user register true
                             header("Location: " . APP_HOST . "/");
                         } else {
                             header("Location: " . APP_HOST . "/404");
                         }
+                    }else {
+                        header("Location: " . APP_HOST . "/404");
                     }
 
 
@@ -47,9 +45,9 @@ class UserAdminController extends Controller
                 } else if (strtoupper($_SERVER["REQUEST_METHOD"]) == "POST" && $_POST["submit"]) {
                     $email = $_POST["email"];
                     $password = $_POST["password"];
-                    $data = self::query("SELECT * FROM users WHERE email = '" . $email . "'");
+                    $data = self::query("SELECT * FROM users WHERE email = '" . $email . "' and status=0");
                     if (!$data) {
-                        // error username or password
+                        // error username or password or ban
                         header("Location: " . APP_HOST . "/404");
                     } else {
                         if (password_verify($password, $data[0]["password"])) {

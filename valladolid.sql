@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versión del servidor:         10.4.27-MariaDB - mariadb.org binary distribution
+-- Versión del servidor:         10.4.28-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
--- HeidiSQL Versión:             12.3.0.6589
+-- HeidiSQL Versión:             12.5.0.6689
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `slider_post` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Volcando datos para la tabla valladolid.slider_post: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla valladolid.slider_post: ~1 rows (aproximadamente)
 INSERT INTO `slider_post` (`id`, `title`, `image`, `link`, `blank`, `created_at`) VALUES
 	(38, 'asdasd', 'asdasdads', 'https', 0, '2023-09-16 22:53:12');
 
@@ -63,19 +63,21 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `number` varchar(50) DEFAULT NULL,
   `id_roblox` int(11) DEFAULT NULL,
   `leones` int(11) DEFAULT 0,
   `gemas` int(11) DEFAULT 0,
   `ip` varchar(50) DEFAULT NULL,
+  `role` varchar(50) DEFAULT 'user',
   `premium` int(11) DEFAULT 0,
   `status` int(11) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- Volcando datos para la tabla valladolid.users: ~1 rows (aproximadamente)
-INSERT INTO `users` (`id`, `id_user`, `DNI`, `username`, `email`, `password`, `id_roblox`, `leones`, `gemas`, `ip`, `premium`, `status`, `created_at`) VALUES
-	(9, NULL, NULL, 'TokyoTF', 'asdasdasdads@hotmail.com', '$2y$10$JV07aIKObmuO03d0Our0cujvMRGfnBk0H/Yld7El0mK/xCKM3IR4u', NULL, 0, 0, NULL, 1, 0, '2023-09-16 17:46:51');
+INSERT INTO `users` (`id`, `id_user`, `DNI`, `username`, `email`, `password`, `number`, `id_roblox`, `leones`, `gemas`, `ip`, `role`, `premium`, `status`, `created_at`) VALUES
+	(13, NULL, NULL, 'test', 'test@hotmail.com', '$2y$10$ALgmY0mId89as2qpEW2Z1.aT95ASiV8DkbBW/roLYnw7fozoeV0yi', NULL, NULL, 0, 0, NULL, 'user', 0, 0, '2023-09-24 20:26:55');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
